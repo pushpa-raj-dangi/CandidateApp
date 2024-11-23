@@ -26,7 +26,7 @@ namespace CandidateApp.Application.Services
                 existingCandidate.CallTimeInterval = dto.CallTimeInterval;
                 existingCandidate.LinkedInProfileUrl= dto.LinkedInUrl;
                 existingCandidate.GitHubProfileUrl = dto.GitHubUrl;
-                existingCandidate.Comment = dto.Comments;
+                existingCandidate.Comment = dto.Comment;
                 await _repository.AddOrUpdateAsync(existingCandidate);
             }
             else
@@ -42,7 +42,7 @@ namespace CandidateApp.Application.Services
                     CallTimeInterval = dto.CallTimeInterval,
                     LinkedInProfileUrl = dto.LinkedInUrl,
                     GitHubProfileUrl = dto.GitHubUrl,
-                    Comment = dto.Comments
+                    Comment = dto.Comment
                 };
 
                 await _repository.AddOrUpdateAsync(newCandidate);
