@@ -13,7 +13,7 @@ public class CandidateRepository(AppDbContext context) : ICandidateRepository
 {
     private readonly AppDbContext _context = context;
 
-    public async Task<Candidate?> GetByEmailAsync(string email)
+    public async Task<Candidate> GetByEmailAsync(string email)
     {
         return await _context.Candidates.SingleOrDefaultAsync(c => c.Email == email);
     }
