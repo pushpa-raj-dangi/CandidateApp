@@ -1,0 +1,13 @@
+.vs
+/CandidateApp.Application/obj
+/CandidateApp.Application/bin
+/CandidateApp.Domain/obj
+/CandidateApp.Domain/bin
+/CandidateApp.Infrastructure/obj
+/CandidateApp.Infrastructure/bin
+/CandidateApp.Api/bin
+/CandidateApp.Api/obj
+/CandidateApp.Tests/obj
+
+
+
