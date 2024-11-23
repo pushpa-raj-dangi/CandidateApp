@@ -11,16 +11,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace CandidateApp.Infrastructure.Middleware
 {
-    public class ExceptionHandlingMiddleware
+    public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
     {
-        private readonly RequestDelegate _next;
-        private readonly ILogger<ExceptionHandlingMiddleware> _logger;
-
-        public ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
-        {
-            _next = next;
-            _logger = logger;
-        }
+        private readonly RequestDelegate _next = next;
+        private readonly ILogger<ExceptionHandlingMiddleware> _logger = logger;
 
         public async Task InvokeAsync(HttpContext context)
         {
@@ -43,7 +37,7 @@ namespace CandidateApp.Infrastructure.Middleware
             var errorResponse = new
             {
                 StatusCode = context.Response.StatusCode,
-                Message = "An unexpected error occurred. Please try again later."
+                Message = exception.Message
             };
 
             var errorResponseJson = JsonSerializer.Serialize(errorResponse);
