@@ -4,18 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CandidateApp.Domain.Entities
+namespace CandidateApp.Application.DTOs
 {
-    public sealed class Candidate {
-        public Guid Id { get; set; }
+    public class CandidateDto
+    {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string CallTimeInterval { get; set; }
-        public string LinkedInProfileUrl { get; set; }
-        public string GitHubProfileUrl { get; set; }
-        public string Comment { get; set; }
-
+        public string LinkedInUrl { get; set; }
+        public string GitHubUrl { get; set; }
+        public string Comments { get; set; }
     }
 }
