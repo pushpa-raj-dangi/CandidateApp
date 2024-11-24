@@ -13,7 +13,7 @@ namespace CandidateApp.Infrastructure.Data.Configurations
             builder.Property(c => c.FirstName).IsRequired();
             builder.Property(c => c.LastName).IsRequired();
             builder.Property(c => c.Email).IsRequired();
-            builder.Property(c => c.Comment).IsRequired();
+            builder.Property(c => c.Comment).IsRequired().HasColumnType("nvarchar(max)");
         }
     }
 }

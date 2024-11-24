@@ -17,8 +17,16 @@ public class CandidatesController(CandidateService service) : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        await _service.AddOrUpdateCandidate(dto);
-        return Created();
+        try
+        {
+            await _service.AddOrUpdateCandidate(dto);
+
+            return CreatedAtAction(nameof(AddOrUpdateCandidate), new { email = dto.Email }, dto); 
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
+        }
     }
 
     

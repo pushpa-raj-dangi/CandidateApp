@@ -1,0 +1,57 @@
+services:
+  candidateapp.api:
+    image: ${DOCKER_REGISTRY-}candidateappapi
+    build:
+      context: .
+      dockerfile: CandidateApp.Api/Dockerfile
+    depends_on:
+      - sqlserver
+    networks:
+      - app_network
+    environment:
+      - "ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=CandidateApp;User Id=sa;Password=P@$$w0rd12345;Encrypt=False;"
+      - ASPNETCORE_ENVIRONMENT=Development
+      
+    ports:
+      - "5000:80"  
+    logging:
+      driver: "json-file" 
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  sqlserver:
+    container_name: mssql-db
+    hostname: sqlserver
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      MSSQL_SA_PASSWORD: "P@$$w0rd12345"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433" 
+    volumes:
+      - sqlvolume:/var/opt/mssql
+    networks:
+      - app_network
+    restart: on-failure
+
+  candidateapp.tests:
+    image: ${DOCKER_REGISTRY-}candidateapptests
+    build:
+      context: .
+      dockerfile: CandidateApp.Tests/Dockerfile
+    depends_on:
+      - candidateapp.api
+    networks:
+      - app_network
+    entrypoint: ["wait-for-it", "candidateapp.api:80", "--", "dotnet", "test", "--no-restore", "--verbosity", "normal"]
+    environment:
+      - DOTNET_CLI_TELEMETRY_OPTOUT=1
+    restart: on-failure
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  sqlvolume:

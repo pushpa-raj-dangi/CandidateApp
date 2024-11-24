@@ -9,6 +9,11 @@
 /CandidateApp.Api/obj
 /CandidateApp.Tests/obj
 /CandidateApp.Tests/bin
+/obj
+/bin
+/data
+/log
+/secrets
 
 
 

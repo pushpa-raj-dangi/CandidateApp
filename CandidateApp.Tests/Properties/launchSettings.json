@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CandidateApp.Tests": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
